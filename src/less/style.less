@@ -1,0 +1,436 @@
+// out: ../css/style.css, compress: true，sourceMap:false
+// 弹窗样式变更
+.ant-modal {
+
+    .ant-modal-header,
+    .ant-modal-footer {
+        border: none;
+    }
+
+    .ant-modal-header {
+
+        .ant-modal-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+}
+
+/* 取消按钮 */
+.btn-cancel {
+    width:123px;
+    height:40px;
+    border-radius: 8px;
+    font-size: 16px;
+    color:#84838E;
+    border-color: #84838E;
+}
+
+/* 蓝边框按钮 */
+.btn-blueBorder {
+    width:123px;
+    height:40px;
+    font-size: 16px;
+    border-radius: 8px;
+    color:#0051FE;
+    border:1px solid #0051FE;
+    background-color: transparent;
+    overflow: hidden;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+/* 提交按钮 */
+.btn-submit {
+    width:123px;
+    height:40px;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #0051FE;
+}
+
+.ant-btn+.ant-btn {
+    margin-left:8px;
+}
+
+// 基础布局
+.g-basisLayout {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+
+    .m-tabs {
+        height:64px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        width:100%;
+
+        .item {
+            margin-left:8px;
+            display: inline-block;
+            color:#84838E;
+            font-size: 24px;
+            cursor: pointer;
+            height:64px;
+            line-height:64px;
+
+            &.active {
+                color:#15121F;
+                font-size: 48px;
+            }
+
+            &:not(:first-child) {
+                margin-left:20px;
+            }
+
+            &:not(.active):hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .g-content {
+        height:10px;
+        flex-grow: 1;
+        display: flex;
+
+        .g-layoutContent {
+            margin-left:16px;
+            flex-grow: 1;
+        }
+    }
+}
+
+// 基础表格
+.g-basisTable {
+    background-color: #fff;
+    border-radius: 8px;
+    
+    .ant-table {
+        border:none;
+    }
+    
+    .ant-table-thead {
+        color:#15121F;
+        font-size: 18px;
+
+        th {
+            font-weight: bold !important;
+        }
+    }
+
+    .ant-table-body {
+        margin:0 !important;
+
+        .ant-table-tbody {
+
+            tr:nth-child(odd) {
+                background-color: #EFEFFB;
+            }
+        }
+    }
+}
+
+/* 下拉列表 */
+.ant-select-dropdown {
+
+    .ant-select-dropdown-content {
+        position: relative;
+        width:calc(100% + 2px);
+        top:3px;
+        left:-1px;
+    }
+
+    .ant-select-dropdown-menu {
+        border-radius: 8px;
+        background-color: #fff;
+        font-size: 16px;
+        box-shadow: 0px 0px 16px 2px rgba(0,0,0,0.1);
+
+        .ant-select-dropdown-menu-item {
+            padding:13px 11px;
+            color:#15121F;
+        }
+    
+        .ant-select-dropdown-menu-item-active {
+            color:#FFFFFF;
+            background-color: #0051FE;
+            border-radius: 7px;
+        }
+    }
+}
+
+// 基础表单样式
+.g-basisForm {
+
+    .ant-form-item {
+        margin:10px 0 0 0;
+        background-color: #F6F6FC;
+        border-radius: 8px;
+
+        &.hasUnit {
+
+            .ant-input-number-input {
+                padding-right: 60px;
+            }
+
+            .unit {
+                position:absolute;
+                top:3px;
+                right:16px;
+                color:#15121F;
+                font-size: 16px;
+            }
+        }
+
+        &.onlyUnit {
+
+            .ant-input-number-input {
+                padding-right: 40px;
+            }
+
+            .unit {
+                position:absolute;
+                top:3px;
+                right:16px;
+                color:#15121F;
+                font-size: 16px;
+            }
+        }
+
+        .ant-form-explain {
+            display: none;
+        }
+
+        .ant-form-item-label {
+            position:absolute;
+            left:16px;
+            top:50%;
+            font-weight: bold;
+            height: 21px;
+            line-height: 20px;
+            text-align: left;
+            transform: translate(0,-50%);
+
+            label {
+                color:#15121F;
+                font-size: 16px;
+            }
+        }
+
+        .ant-form-item-control {
+            width:100%;
+            border:1px solid transparent;
+            border-radius: 8px;
+
+            &.has-error {
+                border-color:#F91515;
+            }
+
+            .ant-form-item-children,
+            .ant-input-affix-wrapper {
+                float:left;
+                height: 100%;
+                width:100%;
+            }
+        }
+
+        .ant-input,
+        .ant-input-number-input {
+            padding:13px 15px 12px 100px;
+            text-align: right;
+        }
+
+        .ant-calendar-picker-input {
+            padding-right: 30px;
+        }
+
+        .ant-input,
+        .ant-input-number,
+        .ant-select,
+        .ant-calendar-picker,
+        .ant-select-search__field,
+        .ant-select-selection__placeholder {
+            float:left;
+            width:100% !important;
+            height: 46px;
+            line-height: 20px;
+            font-size: 16px;
+            border: none;
+            background-color: transparent;
+            text-align: right;
+        }
+
+        .ant-input-number {
+
+            .ant-input-number-input {
+                height: 100%;
+            }
+
+            .ant-input-number-handler-wrap {
+                display: none;
+            }
+        }
+
+        .ant-select-selection {
+            padding-left:100px;
+            background-color: transparent;
+            border: none;
+            height: 100%;
+        }
+
+        .ant-select-selection__rendered {
+            height: 100%;
+        }
+
+        .ant-time-picker {
+            width:100%;
+            padding-left:100px;
+
+            .ant-time-picker-input {
+                padding:0 40px 0 0;
+                border:none;
+                text-align: right;
+                background-color: transparent;
+            }
+        }
+
+        .ant-time-picker-panel {
+            left:auto !important;
+            right:0;
+        }
+
+        .ant-select-selection-selected-value {
+            float:right;
+            line-height: 46px;
+        }
+    }
+}
+
+// 表格样式变更
+.ant-table {
+
+    .ant-table-thead {
+
+        th {
+
+            &:first-child {
+                padding-left:30px !important;
+            }
+
+            &:last-child {
+                padding-right: 30px !important;
+            }
+        }
+    }
+
+    .ant-table-body {
+
+        td {
+
+            &:first-child {
+                padding-left:30px !important;
+            }
+
+            &:last-child {
+                padding-right: 30px !important;
+            }
+        }
+    }
+}
+
+// 暂无数据
+.m-noData {
+    position: relative;
+    height:100%;
+    background:url("../assets/no_data.png") no-repeat center calc(50% - 80px);
+    background-size: 183px;
+
+    &::before {
+        content:"暂无数据";
+        margin-top:20px;
+        position:absolute;
+        top:50%;
+        left:0;
+        width:100%;
+        color:#84838E;
+        font-size: 16px;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+// 信息管理列表
+.m-basisList {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+
+    .g-header {
+        padding:17px 16px;
+        height:82px;
+        border-radius: 8px;
+        background-color: #fff;
+
+        .ant-input{
+            width:232px;
+            height:48px;
+            border:none;
+            font-size: 16px;
+            background-color: #F5F5FD;
+        }
+        
+        .ant-select,
+        .ant-select-selection__rendered {
+            width:180px;
+            height:48px;
+        }
+
+        .ant-select-selection {
+            float:left;
+            width:180px;
+            height:48px;
+            background-color: #F5F5FD;
+            border:none;
+
+            .ant-select-selection-selected-value {
+                line-height: 48px;
+                font-size: 16px;
+            }
+
+            .ant-select-selection__placeholder {
+                font-size: 16px;
+            }
+        }
+
+        .btn-group {
+            float:right;
+
+            .btn {
+                width:48px;
+                height:48px;
+                background-color: #0051FE;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            .btn-add {
+                background:#0051FE url("../assets/add.png") no-repeat center;
+                background-size: 24px;
+                box-shadow: 0 0 10px 1px rgba(0, 81, 254, 0.25);
+            }
+        }
+    }
+
+    .content {
+        margin-top: 10px;
+        flex-grow: 1;
+    }
+}
