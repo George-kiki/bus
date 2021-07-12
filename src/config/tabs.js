@@ -13,21 +13,38 @@
  */
 // 信息管理
 import basisOrganization from '@/pages/basis/organization';   // 组织机构
-import basisVehicleList from '@/pages/basis/vehicleList';   // 车辆列表
-import basisVehicleTypeList from '@/pages/basis/vehicleTypeList';   // 车型列表
-import basisDriverList from '@/pages/basis/driverList'; // 司机列表
-import basisEditVehicle from '@/pages/basis/editVehicle';   // 编辑车辆
+import basisDriver from '@/pages/basis/driver'; // 司机管理
 import basisEditDriver from '@/pages/basis/editDriver'; // 编辑司机
+import basisVehicle from '@/pages/basis/vehicle';   // 车辆管理
+import basisEditVehicle from '@/pages/basis/editVehicle';   // 编辑车辆
+import basisVehicleRecordList from '@/pages/basis/vehicleRecord'; // 行车记录
+import basisVehiclePath from '@/pages/basis/vehiclePath'; // 行车轨迹
+import basisSalesman from '@/pages/basis/salesman'; // 业务员管理
+import basisEditSalesman from '@/pages/basis/editSalesman'; // 编辑业务员
+import basisTenantStationList from '@/pages/basis/tenantStation'; // 站场列表
+import basisYardmanList from '@/pages/basis/yardman'; // 调度员列表
+import basisEditYardman from '@/pages/basis/editYardman'; // 编辑调度员
+import basisEditSite from '@/pages/basis/editSite'; // 编辑站场
+import basisSalesmanOrderDetail from '@/pages/basis/salesmanOrderDetail'; // 业务员订单详情
 
 const TABS = {
     /***************************** 信息管理 *****************************/
     basisOrganization,  // 组织机构
-    basisVehicleList,   // 车辆列表
-    basisVehicleTypeList,   // 车型列表
-    basisDriverList,    // 司机列表
+    basisDriver,    // 司机管理
+    basisEditDriver, // 编辑司机
+    basisVehicle,   // 车辆管理
     basisEditVehicle,   // 编辑车辆
-    basisEditDriver // 编辑司机
+    basisVehicleRecordList, // 行车记录
+    basisVehiclePath, // 行车轨迹
+    basisSalesman, // 业务员管理
+    basisEditSalesman, // 编辑业务员
+    basisTenantStationList, // 站场列表
+    basisEditSite, // 编辑站场
+    basisYardmanList, // 调度员列表
+    basisEditYardman, // 编辑调度员
+    basisSalesmanOrderDetail // 业务员订单详情
 };
+
 export default {
     TABS,
     /**

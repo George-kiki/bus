@@ -97,10 +97,11 @@ export default {
                         authCode:values.check,
                         codeId:this.codeId
                     },data => {
+                        this.$message.success("登录成功");
                         // 保存用户信息
                         window.localStorage["userInfo"] = JSON.stringify(data);
                         // 跳转界面
-                        this.$router.push({name:'basisVehicleList'});
+                        this.$router.push({name:'managerFrame'});
                     },err => {
                         this.loginForm.form.setFieldsValue({check:''});
                         this.getAuthCode();

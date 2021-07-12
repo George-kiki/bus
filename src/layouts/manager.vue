@@ -1,49 +1,53 @@
 <template>
 <a-layout class="g-managerLayout">
     <a-layout-sider class="g-managerSider" width="212px">
-        <a-menu class="menu" theme="dark" mode="inline" ref="menu"
-        v-model="content.menu"
-        :openKeys="sider.openKeys"
-        @click="goUrl"
-        @openChange="siderOpenChange">
-            <a-sub-menu class="basis" key="basis">
-                <span slot="title"><span>信息管理</span></span>
-                <a-menu-item key="basisOrganization">组织机构</a-menu-item>
-                <a-menu-item key="basisDriverList">司机管理</a-menu-item>
-                <a-menu-item key="basisVehicleList">车辆管理</a-menu-item>
-                <a-menu-item key="basisTeam">人车班组</a-menu-item>
-                <a-menu-item key="basisSalesman">业务员管理</a-menu-item>
-                <a-menu-item key="basisEquipment">设备管理</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu class="roster" key="roster">
-                <span slot="title"><span>智能排班</span></span>
-                <a-menu-item key="1">排班</a-menu-item>
-                <a-menu-item key="2">调度</a-menu-item>
-                <a-menu-item key="3">行车记录</a-menu-item>
-                <a-menu-item key="4">补助管理</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu class="business" key="business">
-                <span slot="title"><span>机务和请休假</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="line" key="line">
-                <span slot="title"><span>班线管理</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="order" key="order">
-                <span slot="title"><span>订单管理</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="client" key="client">
-                <span slot="title"><span>客户关系管理</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="finance" key="finance">
-                <span slot="title"><span>财务管理</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="configuration" key="configuration">
-                <span slot="title"><span>参数配置</span></span>
-            </a-sub-menu>
-            <a-sub-menu class="system" key="system">
-                <span slot="title"><span>系统管理</span></span>
-            </a-sub-menu>
-        </a-menu>
+        <div class="content g-scroll">
+            <a-menu class="menu" theme="dark" mode="inline" ref="menu"
+            v-model="content.menu"
+            :openKeys="sider.openKeys"
+            @click="goUrl"
+            @openChange="siderOpenChange">
+                <a-sub-menu class="basis" key="basis">
+                    <span slot="title"><span>信息管理</span></span>
+                    <a-menu-item key="basisOrganization">组织机构</a-menu-item>
+                    <a-menu-item key="basisDriver">司机管理</a-menu-item>
+                    <a-menu-item key="basisVehicle">车辆管理</a-menu-item>
+                    <a-menu-item key="basisTeam">人车班组</a-menu-item>
+                    <a-menu-item key="basisSalesman">业务员管理</a-menu-item>
+                    <a-menu-item key="basisYardmanList">调度员管理</a-menu-item>
+                    <a-menu-item key="basisTenantStationList">站场管理</a-menu-item>
+                    <a-menu-item key="basisEquipment">设备管理</a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu class="roster" key="roster">
+                    <span slot="title"><span>智能排班</span></span>
+                    <a-menu-item key="1">排班</a-menu-item>
+                    <a-menu-item key="2">调度</a-menu-item>
+                    <a-menu-item key="3">行车记录</a-menu-item>
+                    <a-menu-item key="4">补助管理</a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu class="business" key="business">
+                    <span slot="title"><span>机务和请休假</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="line" key="line">
+                    <span slot="title"><span>班线管理</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="order" key="order">
+                    <span slot="title"><span>订单管理</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="client" key="client">
+                    <span slot="title"><span>客户关系管理</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="finance" key="finance">
+                    <span slot="title"><span>财务管理</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="configuration" key="configuration">
+                    <span slot="title"><span>参数配置</span></span>
+                </a-sub-menu>
+                <a-sub-menu class="system" key="system">
+                    <span slot="title"><span>系统管理</span></span>
+                </a-sub-menu>
+            </a-menu>
+        </div>
     </a-layout-sider>
     <a-layout>
         <a-layout-header theme="light" class="g-managerHeader">
@@ -69,7 +73,8 @@
             <a-tabs class="m-tabs" type="editable-card" hideAdd
             v-model="content.current"
             :tabBarGutter="8"
-            @tabClick="changeMenu">
+            @tabClick="changeMenu"
+            @edit="removeMenu">
                 <a-tab-pane
                 v-for="en in content.tabs"
                 :key="en.sign"
@@ -79,6 +84,8 @@
             </a-tabs>
         </a-layout-content>
     </a-layout>
+    <!-- 预览 -->
+    <s-preview ref="preview"></s-preview>
 </a-layout>
 </template>
 
@@ -86,8 +93,12 @@
 import Vue from 'vue';
 import authority from '../config/authority';
 import tabs from '../config/tabs';
+import sPreview from '../components/common/preview.vue';
 
 export default {
+    components:{
+        sPreview
+    },
     data() {
         return {
             sider:{ // 侧边栏
@@ -104,6 +115,11 @@ export default {
         }
     },
     created() {
+        // 获取数据字典
+        this.$store.dispatch("getListType",{type:'allDictionary'});
+        // 更新用户信息
+        this.$store.commit("updateUser");
+
         this.rewriteTabsPush();
     },
     mounted() {
@@ -121,6 +137,9 @@ export default {
                 child
             }
         });
+
+        // 预览
+        Vue.prototype.$preview = this.$refs.preview;
     },
     methods: {
         /**
@@ -133,9 +152,9 @@ export default {
                     switch(key) {
                         case "basisOrganization":
                             return "组织机构";
-                        case "basisDriverList":
+                        case "basisDriver":
                             return "司机管理";
-                        case "basisVehicleList":
+                        case "basisVehicle":
                             return "车辆管理";
                         case "basisTeam":
                             return "人车班组";
@@ -143,6 +162,10 @@ export default {
                             return "业务员管理";
                         case "basisEquipment":
                             return "设备管理";
+                        case "basisTenantStationList":
+                            return "场站管理";
+                        case "basisYardmanList":
+                            return "调度员管理";
                     }
                 })(),
                 model:key,
@@ -204,7 +227,7 @@ export default {
                                 name:obj.name,
                                 belong:obj.belong
                             });
-                            content.menu = current.belong;
+                            content.menu = [current.belong];
                         } else if(this.TABS[obj.model]) {
                             current = {
                                 sign:obj.sign,
@@ -218,7 +241,7 @@ export default {
                             content.current && self.$refs[content.current][0].lostActive && self.$refs[content.current][0].lostActive();
                             content.current = obj.sign;
                             content.currentObj = current;
-                            content.menu = obj.belong;
+                            content.menu = [obj.belong];
                         } else {
                             $message.error("传入的model不存在");
                         }
@@ -238,7 +261,7 @@ export default {
                         content.current && self.$refs[content.current][0].lostActive && self.$refs[content.current][0].lostActive();
                         content.current = current.sign;
                         content.currentObj = current;
-                        content.menu = current.belong;
+                        content.menu = [current.belong];
                         // 调用当前的激活的tab的getActive函数
                         self.$refs[content.current][0].getActive && self.$refs[content.current][0].getActive();
                     } else {
@@ -305,14 +328,14 @@ export default {
                     content.currentObj = content.tabs[0];
                     this.$refs[content.current][0].getActive && this.$refs[content.current][0].getActive();
                     // 切换左侧菜单激活状态
-                    this.content.menu = content.currentObj.belong;
+                    this.content.menu = [content.currentObj.belong];
                 } else {
                     this.$refs[sign][0].lostActive && this.$refs[sign][0].lostActive();
                 }
             } else {
                 content.current = '';
                 // 切换左侧菜单激活状态
-                this.content.menu = '';
+                this.content.menu = [];
             }
         },
         /**
@@ -355,6 +378,10 @@ export default {
         border-radius: 0 8px 8px 0;
         box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.25);
 
+        .content {
+            height: 100%;
+        }
+
         .menu {
             color:#757F95;
             font-size: 16px;
@@ -362,7 +389,7 @@ export default {
 
             .ant-menu {
                 background-color: #2A292C;
-                
+
                 .ant-menu-item {
                     padding-left:0 !important;
                     margin:0;
@@ -551,11 +578,12 @@ export default {
             .ant-tabs-nav-wrap {
                 overflow: initial !important;
             }
-            
+
             .ant-tabs-bar {
+                margin-bottom:33px;
                 padding:0 16px;
                 border: none;
-
+                margin-bottom: 32px;
                 .ant-tabs-tab {
                     position: relative;
                     padding:0 18px;
@@ -595,10 +623,6 @@ export default {
 
                 .ant-tabs-tabpane {
                     padding-bottom: 20px;
-
-                    &>div {
-                        padding:0 16px;
-                    }
                 }
 
                 .ant-tabs-tabpane-active {

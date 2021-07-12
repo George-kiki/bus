@@ -176,18 +176,44 @@ function mdEncrypt(message) {
 }
 
 /**
+ * 执行接口处理函数
+ * @param {Axios} request [请求的对象]
+ * @param {Function} success [请求成功之后的回调函数]
+ * @param {Function} failure [请求失败之后的回调函数]
+ * @param {Function} complete [请求完毕回调函数]
+ */
+function carriedApiAxios(request,success, failure,complete) {
+  request.then(function (res) {
+    if(res.data.code == '200') {
+      success(res.data.content || res.data);
+    } else {
+      message.error(res.data.message);
+      failure && failure(res);
+    }
+    complete && complete();
+  })
+  .catch(function (err) {
+    if(err.isAxiosError) {
+      message.error('请求失败，请检查网络!')
+      failure && failure();
+    } else if (err.message.indexOf('timeout') !== -1) {
+      message.error('请求超时,请重试!')
+    }
+    complete && complete();
+  })
+}
+
+/**
  * 接口处理函数
  * @param {String} method [方法]
  * @param {String} url [请求地址]
  * @param {String} params [参数]
- * @param {Function} success [请求成功之后的回调函数]
- * @param {Function} failure [请求失败之后的回调函数]
  */
-function apiAxios (method, url, params, success, failure) {
+function apiAxios (method, url, params) {
   if (params) {
     params = filterNull(params)
   }
-  axios(Object.assign({
+  return axios(Object.assign({
     method: method,
     url: url,
     data: method === 'POST' || method === 'PUT' ? params : null,
@@ -221,33 +247,68 @@ function apiAxios (method, url, params, success, failure) {
 			}
 		}
 	})()))
-  .then(function (res) {
-    if(res.data.code == '200') {
-      success(res.data.content || res.data);
-    } else {
-      message.error(res.data.message);
-      failure && failure(res);
-    }
-  })
-  .catch(function (err) {
-    if(err.isAxiosError) {
-      message.error('请求失败，请检查网络!')
-      failure && failure();
-    } else if (err.message.indexOf('timeout') !== -1) {
-      message.error('请求超时,请重试!')
-    }
-  })
 }
 
 // 返回在vue模板中的调用接口
 export default {
   root,fileRoot,encrypt,getWindowUrl,mdEncrypt,
-  get: function (url, params, success, failure) {
-    return apiAxios('GET', url, params, success, failure)
+  get: function (url, params, success, failure,complete,isCarried = true) {
+    if(isCarried) {
+      carriedApiAxios(apiAxios('GET', url, params), success, failure,complete);
+    } else {
+      return apiAxios('GET', url, params);
+    }
   },
-  post: function (url, params, success, failure) {
-    return apiAxios('POST', url, params, success, failure)
+  post: function (url, params, success, failure,complete,isCarried = true) {
+    if(isCarried) {
+      carriedApiAxios(apiAxios('POST', url, params), success, failure,complete);
+    } else {
+      return apiAxios('POST', url, params);
+    }
   },
+  batchAxios(axiosAll, success, failure,complete) {
+    axios.all(axiosAll.map(val => {
+      return val.method == 'post'?this.post(val.url,val.params,null,null,null,false):this.get(val.url,val.params,null,null,null,false);
+    })).then((resolve,reject) => {
+      if(resolve.find(val => val.data.code != '200')) {
+        message.error("请求失败");
+        failure && failure(res);
+      } else {
+        success(resolve.map(val => {
+          return val.data.content || val.data;
+        }));
+      }
+      complete && complete();
+    }).catch(err => {
+      if(err.isAxiosError) {
+        message.error('请求失败，请检查网络!')
+        failure && failure();
+      } else if (err.message.indexOf('timeout') !== -1) {
+        message.error('请求超时,请重试!')
+      }
+      complete && complete();
+    })
+  },
+	/**
+	 * 初始化附件
+	 * @param {String} fileList [附件数组]
+	 */
+	initAnnex:function(fileList) {
+		return fileList?fileList.split("|").map(val => {
+			let temp = val.split("*");
+			return {
+				name:temp[1],
+				url:temp[0]
+			}
+		}):[];
+	},
+	/**
+	 * 下载附件
+	 * @param {String} url [附件地址]
+	 */
+	downLoadFile(url) {
+		window.open(url,"_blank");
+	},
   /**
    * 根据列表获取标签名
    * @param {Array} list [列表]

@@ -105,3 +105,4 @@ exports.createNotifierCallback = () => {
     })
   }
 }
+

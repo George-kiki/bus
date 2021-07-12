@@ -13,7 +13,17 @@ const state = {
 		size:[10,20,50,100]
 	},
 	list:{	// 列表
-		stopType:[]	// 停靠站类型
+		tenantOrderAfterSaleType:[],  // 订单售后类型
+		orderMovingRecordSource:[], // 订单流转记录来源于
+		tenantOrderCostInclude:[], // 订单金额包括
+		tenantClientType:[],    // 企业客户类型
+		tenantOrderType:[],  // 订单类型
+		tenantOrderClearingForm:[],    // 订单结算方式
+		vehiclePowerType:[],    // 车辆动力类型
+		inoculationSeries:[],    // 新冠疫苗接种情况
+		tenantStationType:[],   // 场站类型
+		driverLicenseType:[],	// 驾驶证类型
+		vehicleOperationScope:[]	// 车辆营运许可范围
 	},
 	map:{
 		center:[114.059628,22.543659]

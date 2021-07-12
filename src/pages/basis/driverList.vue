@@ -59,12 +59,13 @@ export default {
                     dataIndex:'phone'
                 },{
                     title:'所属组织',
-                    dataIndex:'regionName'
+                    dataIndex:'officeName'
                 },{
                     title:'驾驶证有效期',
-                    dataIndex:'isVacation'
+                    dataIndex:'driverLicenseEffectDate'
                 },{
-                    title:'从业资格证有效期'
+                    title:'从业资格证有效期',
+                    dataIndex:'driverCertificationEffectDate'
                 },{
                     title:'操作',
                     width:'170px',
@@ -84,35 +85,20 @@ export default {
                 showTotal:total => `共 ${total} 条记录 第${this.pagination.current}/${Math.ceil(total/this.pagination.pageSize)}页`
             },
             searchForm:{
-                form:this.$form.createForm(this,{
-                    onFieldsChange:(props,values) => {
-                        values.hasOwnProperty('isEnable') && this.getList(1);
-                    }
-                })
-            },
-            editDriver:{   // 编辑车辆
-                show:false,
-                submitLoading:false,
-                did:null,   // 编号
-                title:'',   // 标题
                 form:this.$form.createForm(this)
-            },
-            vacation:{   // 休假
-                show:false,
-                submitLoading:false,
-                did:null,   // 编号
-                form:this.$form.createForm(this)
-            },
-            list:{
-                vehicleCondition:[{label:'正常使用',value:'1'},{label:'维修',value:'2'}],    // 车况
-                vehicleType:[]  // 车型列表
             }
         }
     },
     created() {
-        // this.getList();
+        this.getList();
     },
     methods:{
+        /**
+         * 获取焦点
+         */
+        getActive() {
+            this.getList();
+        },
         /**
          * 获取列表数据
          * @param {Object || Number} 翻页控件参数 [可能为Object或者Number]
@@ -162,19 +148,33 @@ export default {
                         model:"basisEditDriver",
                         belong:"basisDriverList",
                         params:{
-                            from:'basisDriverList',
+                            from:"basisDriverList",
                             status:'0'
                         }
                     });
                 break;
                 case "edit":   // 编辑
+                    this.$tabs.push({
+                        sign:"basisEditDriver",
+                        name:"编辑司机",
+                        model:"basisEditDriver",
+                        belong:"basisDriverList",
+                        params:{
+                            from:'basisDriverList',
+                            status:'1',
+                            did:record.id
+                        }
+                    });
                 break;
                 case "check":   // 查看
-                    this.$router.push({
-                        name:"basisEditDriver",
+                    this.$tabs.push({
+                        sign:"basisEditDriver",
+                        name:"查看司机",
+                        model:"basisEditDriver",
+                        belong:"basisDriverList",
                         params:{
-                            from:"basisDriverList",
-                            status:"2",
+                            from:'basisDriverList',
+                            status:'2',
                             did:record.id
                         }
                     });

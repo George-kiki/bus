@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 管理界面
 import ManagerFrame from '@/layouts/manager';
-
 Vue.use(Router);
 
 let router = new Router({

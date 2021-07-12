@@ -75,7 +75,7 @@ input::-moz-input-placeholder {
 }
 
 .g-scroll {
-    scrollbar-color: #E7E7F0 #E7E7F0;
+    scrollbar-color: #5B5A60 #5B5A60;
     /* 火狐浏览器专属 */
     scrollbar-width: thin;
     scroll-behavior: smooth;
@@ -97,10 +97,10 @@ input::-moz-input-placeholder {
     width: 6px;
     height:6px;
 }
-.g-scroll::-webkit-scrollbar-thumb {background:#E7E7F0;border-radius: 10px;}
-.g-scroll::-moz-scrollbar-thumb {background:#E7E7F0;border-radius: 10px;}
-.g-scroll::-ms-scrollbar-thumb {background:#E7E7F0;border-radius: 10px;}
-.g-scroll::-o-scrollbar-thumb {background:#E7E7F0;border-radius: 10px;}
+.g-scroll::-webkit-scrollbar-thumb {background:#5B5A60;border-radius: 10px;}
+.g-scroll::-moz-scrollbar-thumb {background:#5B5A60;border-radius: 10px;}
+.g-scroll::-ms-scrollbar-thumb {background:#5B5A60;border-radius: 10px;}
+.g-scroll::-o-scrollbar-thumb {background:#5B5A60;border-radius: 10px;}
 
 /* 翻页 */
 .ant-table-pagination {

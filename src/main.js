@@ -12,7 +12,6 @@ import 'babel-polyfill' // 解决不支持Promise的浏览器
 import './css/base.css' // 基础样式
 import './css/normalize.css'  // 重置样式
 import './less/style.less'  // 功能样式
-
 import api from './config/api'
 import face from './config/interface'
 
@@ -23,8 +22,6 @@ Vue.prototype.$tabs = tabs;
 Vue.prototype.$api = api;
 Vue.prototype.$face = face;
 
-// 二级菜单
-Vue.component('sMenu', resolve => require(["./components/common/menu"],resolve));
 
 /* eslint-disable no-new */
 new Vue({
@@ -34,3 +31,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 });
+
